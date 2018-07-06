@@ -1,0 +1,191 @@
+<div class="detailedInfo">
+	<form name="clientForm" novalidate>
+		<div style="padding:10px">
+			<div class="rightTopPane row">
+				<div class="btnContainer">
+					<button class="btn btn-primary" ng-show="!showNewClient && clientList.length > 0" ng-click="edit()">Edit</button>
+					<button class="btn btn-primary" ng-show="showNewClient" ng-mousedown="check(clientForm.$valid)">Save</button>
+					<button class="btn btn-primary" ng-show="showNewClient && isEditable()" ng-mousedown="cancel()">Cancel</button>
+				</div>
+			</div>
+			<div ng-if="!clientForm.$valid && submitted"><span class="required-field">Please enter all mandatory fields(*) to proceed.</span></div>
+			<div>
+				<!--  General Info Starts -->
+				<div class="infoGroup">
+					<div class="collapsible-panel-header" ng-click="collapse1 = !collapse1"><a class="accordion-toggle">General Information</a></div>
+					<div ng-show="collapse1" class="collapsibleFieldContainer">
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Name <span class="required-field">*</span></label>
+								<input ng-model="record.name" type="text" name="clientName" id="clientName"   type="text" class="form-control" ng-required="true" ng-class="{'signage-disabled':!isEditable()}" ng-disabled="!isEditable()" ng-blur="alreadyExists(record.name)"/>
+								<div class="form-group" ng-class="{ 'has-error' : clientForm.clientName.$invalid || alreadyExistError }">
+									<p ng-show="isDisabledclientName && clientForm.clientName.$error.required" class="help-block">Name is required.</p>
+									<p class="help-block">{{alreadyExistError}}</p>
+								</div>
+							</div>
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Brand Name <span class="required-field">*</span></label>
+								<input ng-model="record.brandName" type="text" name="nameBrand" id="nameBrand" ng-required="true" class="form-control" ng-class="{'signage-disabled':!isEditable()}" ng-disabled="!isEditable()" />
+								<div class="form-group" ng-class="{ 'has-error' : clientForm.nameBrand.$invalid }">
+									<p ng-show="isDisabledbrandName && clientForm.nameBrand.$error.required" class="help-block">Brand name is required.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12" ng-controller="TypeaheadCtrl">
+								<label>Parent Company</label>
+								<div class="right-inner-addon">
+									<i class="glyphicon glyphicon-search"></i>
+									<input type="text" ng-model="record.parentName" name="parentCompanyName" id="parentCompanyName" uib-typeahead="client as client.name for client in clientList | filter:{name:$viewValue}" typeahead-template-url="parentCompany.html" class="form-control" typeahead-show-hint="true" typeahead-min-length="1" typeahead-on-select="onSelect($item, $model, $label)" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}" />
+								</div>
+							</div>
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Industry Type <span class="required-field">*</span></label>
+								<select ng-model="record.industryTypeId" name="industrytypeName" id="industrytypeName" ng-required="true" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}" ng-options="industrytype.id as industrytype.name for industrytype in industryTypes"></select>
+								<div class="form-group" ng-class="{ 'has-error' :  clientForm.industrytypeName.$invalid }">
+									<p ng-show="isDisabledindustrytypeName && clientForm.industrytypeName.$error.required" class="help-block">Industry Type is required.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Website <span class="required-field">*</span></label>
+								<input ng-model="record.clientURL" type="text" name="websiteName" id="websiteName" ng-required="true"  class="form-control" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+								<div class="form-group"   ng-class="{ 'has-error' :  clientForm.websiteName.$invalid }">
+									<p ng-show="isDisabledwebsiteName &&  clientForm.websiteName.$error.required" class="help-block">Website is required.</p>
+								</div>
+							</div>
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Description</label>
+								<textarea ng-model="record.description" type="text" name="descriptionName" id="descriptionName" class="form-control" cols="50" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!--  General Info Ends -->
+
+			<!--  Address Starts here -->
+				<div class="infoGroup">
+					<div class="collapsible-panel-header" ng-click="collapse2 = !collapse2"><a class="accordion-toggle">Address</a></div>
+					<div ng-show="collapse2" class="collapsibleFieldContainer">
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Address <span class="required-field">*</span></label>
+								<textarea 	vs-google-autocomplete
+											vs-city="record.addressVO.city"
+											vs-state="record.addressVO.stateCode"
+											vs-country="record.addressVO.country"
+											vs-post-code="record.addressVO.zipCodeId"
+											ng-model="record.addressVO.addressline" type="text" name="addressName" id="place" ng-required="true" class="form-control" cols="50" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}">
+								</textarea>
+								<div class="form-group"   ng-class="{ 'has-error' :  clientForm.addressName.$invalid }">
+									<p ng-show="isDisabledaddressName && clientForm.addressName.$error.required" class="help-block">Address is required.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Country <span class="required-field">*</span></label>
+								<input ng-model="record.addressVO.country" id="country" type="text" name="countryName" class="form-control" ng-required="true" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+								<div class="form-group" ng-class="{ 'has-error' :  clientForm.countryName.$invalid }">
+									<p ng-show="isDisabledcountryName && clientForm.countryName.$error.required" class="help-block">Country is required.</p>
+								</div>
+							</div>
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>State <span class="required-field">*</span></label>
+								<input ng-model="record.addressVO.stateCode" id="stateId" name="state" type="text" class="form-control" ng-required="true" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+								<div class="form-group"   ng-class="{ 'has-error' :  clientForm.state.$invalid }">
+									<p ng-show="isDisabledState && clientForm.state.$error.required" class="help-block">State is required.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>City <span class="required-field">*</span></label>
+								<input ng-model="record.addressVO.city" id="city" name="city" type="text" class="form-control" ng-disabled="!isEditable()" ng-required="true" ng-class="{'signage-disabled':!isEditable()}"/>
+								<div class="form-group"   ng-class="{ 'has-error' :  clientForm.city.$invalid }">
+									<p ng-show="isDisabledCity && clientForm.city.$error.required" class="help-block">City is required.</p>
+								</div>
+							</div>
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Zip Code <span class="required-field">*</span></label>
+								<input ng-model="record.addressVO.zipCodeId" type="text" name="zipCodeId" id="zipCodeId"  ng-required="true" class="form-control" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+								<div class="form-group"   ng-class="{ 'has-error' :  clientForm.zipCodeId.$invalid }">
+									<p ng-show="isDisabledZipCodeId  && clientForm.zipCodeId.$error.required" class="help-block">Zip Code is required.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!--  Address Ends here -->
+
+			<!-- Contacts Starts here -->
+				<div class="infoGroup">
+					<div class="collapsible-panel-header" ng-click="collapse3 = !collapse3"><a class="accordion-toggle">Contacts</a></div>
+					<div ng-show="collapse3" class="collapsibleFieldContainer">
+						<div class="row" ng-repeat="contact in record.orgContactsVO">
+							<ng-form name="cinnerForm{{$index}}">
+								<div class="form-group col-md-3 col-sm-3 col-xs-12">
+									<label>Phone <span class="required-field">*</span></label>
+									<input ng-model="contact.phone" type="text" name="phoneNumber" id="phoneNumber"  ng-pattern="/^[1-9]\d*(\.\d+)?$/" maxlength="10" ng-required="true" class="form-control" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+									<div class="form-group"  ng-class="{ 'has-error' : clientForm.cinnerForm{{$index}}.phoneNumber.$invalid }">
+										<p ng-show="isDisabledPhoneNumber  && clientForm.cinnerForm{{$index}}.phoneNumber.$error.required" class="help-block" style="color:brown;">Phone Number is required.</p>
+										<p ng-show="clientForm.cinnerForm{{$index}}.phoneNumber.$error.pattern" class="help-block" style="color:brown;">Phone Number can only consist of numbers.</p>
+									</div>
+								</div>
+								<div class="form-group col-md-4 col-sm-4 col-xs-12">
+									<label>Email <span class="required-field">*</span></label>
+									<input ng-model="contact.emailid" type="text"  name="contactEmail" id="contactEmail"  ng-pattern="/^[A-Za-z0-9+_.-]+@(.+)$/" ng-required="true" class="form-control"  ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+									<div class="form-group"   ng-class="{ 'has-error' :  clientForm.cinnerForm{{$index}}.contactEmail.$invalid  }">
+										<p ng-show="isDisabledContactEmail  && clientForm.cinnerForm{{$index}}.contactEmail.$error.required" class="help-block" style="color:brown;">Email is required.</p>
+										<p ng-show="clientForm.cinnerForm{{$index}}.contactEmail.$error.pattern" class="help-block" style="color:brown;">Please Enter Valid Email.</p>
+									</div>
+								</div>
+								<div class="form-group col-md-3 col-sm-3 col-xs-12">
+									<label>Fax <span class="required-field">*</span></label>
+									<input ng-model="contact.fax" type="text" name="faxNumber" id="faxNumber"  ng-pattern="/^[1-9]\d*(\.\d+)?$/" ng-required="true" maxlength="13" class="form-control" ng-disabled="!isEditable()" ng-class="{'signage-disabled':!isEditable()}"/>
+									<div class="form-group"   ng-class="{ 'has-error' :  clientForm.cinnerForm{{$index}}.faxNumber.$invalid }">
+										<p ng-show="isDisabledFaxNumber && clientForm.cinnerForm{{$index}}.faxNumber.$error.required" class="help-block" style="color:brown;">Fax number is required.</p>
+										<p ng-show="clientForm.cinnerForm{{$index}}.faxNumber.$error.pattern" class="help-block" style="color:brown;">Fax number can only consist of alphabetical.</p>
+									</div>
+								</div>
+								<div class="col-md-2 col-sm-2 col-xs-12">
+									<div class="removeBtnContainer">
+										<a ng-show="$index==record.orgContactsVO.length-1 && isEditable()" class="addMultipleBtn" ng-click="addContact(record.orgContactsVO.length)"><span class="glyphicon glyphicon-plus-sign"></span></a>
+										<a ng-show="$index!=0 && isEditable()" class="removeBtn" ng-click="removeContact($index)"><span class="glyphicon glyphicon-minus-sign"></span></a>
+									</div>
+								</div>
+							</ng-form>
+						</div>
+					</div>
+				</div>
+				<!-- Contacts Ends here -->
+				<div class="infoGroup">
+					<div class="collapsible-panel-header" ng-click="collapse4 = !collapse4"><a class="accordion-toggle">Theme</a></div>
+					<div ng-show="collapse4" class="collapsibleFieldContainer">
+						<div class="row">
+							<div class="form-group col-md-5 col-sm-5 col-xs-12">
+								<label>Tagline</label>
+								<textarea rows="4" ng-model="record.themeVO.tagline" class="form-control" cols="50" ng-class="{'signage-disabled':!isEditable()}" ng-disabled="!isEditable()"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="rightTopPane row" style="margin-top:12px;">
+				<div class="btnContainer">
+					<button class="btn btn-primary" ng-show="!showNewClient && clientList.length > 0" ng-click="edit()">Edit</button>
+					<button class="btn btn-primary" ng-show="showNewClient" ng-mousedown="check(clientForm.$valid)">Save</button>
+					<button class="btn btn-primary" ng-show="showNewClient && isEditable()" ng-mousedown="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+ 
+<script type="text/ng-template" id="parentCompany.html">
+  <a>
+    <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16"/>
+    <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+</script>

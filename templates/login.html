@@ -1,0 +1,22 @@
+<section class="login-view-container" ng-controller="loginCtrl">
+	<form ng-submit="login()">
+		<div class="login-view-sub-container">
+		  <div class="loginContainer">
+			  <div class="subLoginContainer">
+				<div class="login-title">Log in</div>
+				<div class="login-error" ng-if="data.status">{{data.status}}</div>
+				<!-- <div class="group">
+					<input type="text" ng-model="data.url"><span class="highlight"></span><label>URL</label>
+				</div> -->
+				<div class="group">
+					<input type="text" ng-model="data.username" placeholder="Mobile or Email" />
+				</div>
+				<div class="group">
+					<input type="password" ng-model="data.password" placeholder="Password" />
+				</div>
+				<button class="btn btn-primary" >Login</button>
+			  </div>
+		  </div>
+		</div>
+	</form>
+</section>

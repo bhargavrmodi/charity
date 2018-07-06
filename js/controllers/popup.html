@@ -1,0 +1,10 @@
+<div class="modal-header">
+	<h3 class="modal-title" style="color:#449d44;" id="modal-title"><span class="glyphicon glyphicon-ok"></span> Success</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	{{message}}!
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok()">Ok</button>
+	<button ng-if="buttonName" class="btn btn-primary" type="button" ng-click="navigateToUser()">{{buttonName}}</button>
+</div>

@@ -1,0 +1,113 @@
+<section class="row dashboardContainer" ng-controller="dashboardCtrl as mc">
+<!-- <input type="checkbox"  ng-model="mc.mytask" value="{{mc.mytask}}"/> : My Task {{mc.mytask}} -->
+  
+    <div class="upperContainer col-md-12">
+		
+        <div st-pipe="callServer" st-table="mc.displayed">
+			<ul class="nav nav-pills">
+				<li show-sites="y" class="active" ><a data-toggle="pill">Sites</a></li>
+				<li show-sites="n" ><a data-toggle="pill">Tasks</a></li>
+			</ul>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr> 
+                	<th st-sort="campaingname">Action</th>                  
+                    <th st-sort="campaingname">Campaign name</th>                    
+                    <th st-sort="sitename">Site Name</th>
+                    <th st-sort="location">Location</th>
+					<th st-sort="siteownername">Site Owner Name</th>
+					<th st-sort="siteownercontactnumber">Site Owner Contact Number</th>
+                    <th st-sort="assignedto">Assigned To</th>
+                    <th st-sort="siteState">Site Phase</th>
+                    <th st-sort="siteStatus">Site Status</th>
+                </tr>
+                <tr>        
+                	<th></th>           
+                    <th><input class="form-control" st-search="campaingname"/></th>
+                    <th><input class="form-control" st-search="sitename"/></th>
+                    <th><input class="form-control" st-search="location"/></th>
+                    <th><input class="form-control" st-search="siteownername"/></th>
+                    <th><input class="form-control" st-search="siteownercontactnumber"/></th>
+					<th><input class="form-control" st-search="assignedto"/></th>
+					<th><input class="form-control" st-search="sitePhase"/></th>
+					<th><input class="form-control" st-search="status"/></th>
+                </tr>
+                </thead>
+                <tbody ng-show="!mc.isLoading">
+                <tr ng-repeat-start="row in mc.displayed">
+                	<td><span class="glyphicon glyphicon-info-sign infoBtn" ng-click="row.showDesc = !row.showDesc"></span> <span ui-sref="Aprroval({ siteId: {{row.siteid}}, stateId : {{row.stateId}}})" class="glyphicon glyphicon-play-circle runBtn"></span></td>
+                    <td>{{row.stateId}},  {{row.siteid}}{{row.campaingname}}</td>
+                    <td>{{row.sitename}}</td>
+                    <td>{{row.addressline}}{{row.city}}, {{row.state}}, {{row.country}}.</td>
+					<td>{{row.siteownername}}</td>
+					<td>{{row.siteownercontactnumber}}</td>
+					<td>{{row.assignedTo}}</td>
+                    <td>{{row.sitePhase}}</td>
+<!--                     <td><a ui-sref="Aprroval"  class="btn btn-3"><span class="ion-ios-people glyfi"></span> pnding</a></td> -->
+                     <td>{{row.status}}</td>
+                </tr>
+                <tr ng-repeat-end ng-show="row.showDesc">
+                    <td colspan="9">
+                        <ol class="progress-track">
+                            <li id="recy" ng-class="{'progress-todo': row.sitePhaseDetails.reccyStatus === 'PENDING', 'progress-done': row.sitePhaseDetails.reccyStatus === 'COMPLETED'}">
+                                <center>
+                                    <div class="icon-wrap"></div>
+                                    <span class="glyphicon glyphicon-play infoChevron"></span> <a class="infoBtnContainer"><span class="progress-text" ng-click="mc.showAssignToDetails(row.assignedTo)">Recee</span></a>
+                                </center>
+                            </li>
+
+                            <li class="progress-todo" id="dsgn">
+                                <center>
+                                    <div class="icon-wrap"></div>
+                                    <span class="glyphicon glyphicon-play infoChevron"></span> <a class="infoBtnContainer"><span class="progress-text" ng-click="mc.showAssignToDetails(row.assignedTo)">Design</span></a>
+                                </center>
+                            </li>
+
+                            <li class="progress-todo" id="fbrc">
+                                <center>
+                                    <div class="icon-wrap"></div>
+                                    <span class="glyphicon glyphicon-play infoChevron"></span> <a class="infoBtnContainer"><span class="progress-text" ng-click="mc.showAssignToDetails(row.assignedTo)">Printing</span></a>
+                                </center>
+                            </li>
+
+                            <li class="progress-todo" id="prnt">
+                                <center>
+                                    <div class="icon-wrap"></div>
+                                    <span class="glyphicon glyphicon-play infoChevron"></span> <a class="infoBtnContainer"><span class="progress-text" ng-click="mc.showAssignToDetails(row.assignedTo)">Fabrication</span></a>
+                                </center>
+                            </li>
+
+                            <li class="progress-todo" id="inst">
+                                <center>
+                                    <div class="icon-wrap"></div>
+                                    <span class="glyphicon glyphicon-play infoChevron"></span> <a class="infoBtnContainer"><span class="progress-text" ng-click="mc.showAssignToDetails(row.assignedTo)">Installation</span></a>
+                                </center>
+                            </li>
+                        </ol>
+                        <div class="assignName">{{assignedToName}} <span>{{completedDate}}</span></div>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody ng-show="mc.isLoading">
+                <tr>
+                    <td colspan="8" class="text-center">Loading ... </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="text-center" colspan="9">
+                        <div st-items-by-page="4" st-pagination="" st-template="templates/pagination.custom.html"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>	
+        </div>
+    </div>
+	
+    <div class="lowerContainer col-md-12">
+		<div class="row">
+			<div class="col-md-6" id="container" style="height: 290px; margin: 0 auto">Placeholder for chart</div>
+			<div class="col-md-6" id="container1" style="height: 290px; margin: 0 auto"></div>
+		</div>
+    </div>
+</section>

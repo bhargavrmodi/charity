@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"> -->
+    <title>CharityApp</title>
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+    <!-- compiled css output -->
+    <!-- <link href="css/ionic.app.css" rel="stylesheet"> -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="lib/angular-ui-grid/ui-grid.css" />
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/angular-datepicker.css" rel="stylesheet">
+	<link href="css/ng-scrollbar.min.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+	<script src="js/jquery-2.1.4.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+    <script src="lib/angular-ui-grid/ui-grid.js"></script>
+    <script src="lib/angular-directives/ui-bootstrap-tpls-2.2.0.min.js"></script>
+    <script src="lib/angular-directives/angular-file-upload.js"></script>
+    <script src="lib/bootstrap/bootstrap.js"></script>
+    <script src="lib/smart-table/smart-table.js"></script>
+    <script type="text/javascript" rel="javascript" src="lib/angular-datepicker.js"></script>
+    <script type="text/javascript" rel="javascript" src="lib/ng-scrollbar.min.js"></script>
+    <script src="lib/smart-table/smart-table.js"></script>
+    <script src="lib/highcharts/highcharts.js"></script>
+	
+	 <!-- maps -->
+	<script type="text/javascript" rel="javascript" src="lib/vs-google-autocomplete.js"></script>
+	<script type="text/javascript" rel="javascript" src="lib/angularjs-google-maps.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCXo_VQPBGuTq_Y8qNMIZG7DWFO0SogQTg&sensor=false&libraries=places"></script>
+    
+	 
+    <!-- utils -->
+    <script src="js/utils/urlUtil.js"></script>
+    
+    <script src="js/app.js"></script>
+    <script src="lib/checklist-model.js"></script>
+    <!-- List files here for time being, later on we will create single file for all controllers, services, directives, utils etc. using maven+grunt target -->
+    
+    <!-- services -->
+    <script src="js/services/clientService.js"></script>
+    
+    <!-- controllers -->
+    <script src="js/controllers/headerController.js"></script>
+    <script src="js/controllers/loginController.js"></script>
+    <script src="js/controllers/clientController.js"></script>
+    <script src="js/controllers/angularTypeaheadController.js"></script>
+    <script src="js/controllers/datePickerController.js"></script>
+    <script src="js/controllers/fileUploadArtifactController.js"></script>
+    <script src="js/controllers/dashboardController.js"></script>  
+    <!-- directives -->
+    <script src="js/directives/commonDirective.js"></script>
+    <script src="js/directives/loginDirective.js"></script>
+    <script src="js/directives/clientDirective.js"></script>
+	<script src="js/directives/onFocusDirective.js"></script>
+	<script src="js/directives/pageSelect.directive.js"></script>
+    <script src="js/directives/chartDirective.js"></script>
+    <script src="js/directives/dashboardDirective.js"></script>
+	
+	<!-- Factories -->
+    <script src="js/factories/datePickerFactory.js"></script>
+    <script src="js/factories/typeaheadFactory.js"></script>
+	
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- <script src="cordova.js"></script> -->
+    <!-- your app's js -->
+  </head>
+  
+  <body ng-app="starter">
+    <!--The nav bar that will be updated as we navigate between views.-->
+    <!-- <ion-nav-bar class="bar-stable">
+		<ion-nav-back-button>
+		</ion-nav-back-button>
+	</ion-nav-bar> -->
+    <!--The views will be rendered in the <ion-nav-view> directive below Templates are in the /templates folder (
+	but you could also have templates inline in this html file if you'd like).-->
+	<div id="mydiv">
+		<div class="loader"></div>
+	</div>
+    <div class="wrapper" ui-view></div>
+  </body>
+</html>

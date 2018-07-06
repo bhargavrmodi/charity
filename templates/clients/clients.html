@@ -1,0 +1,20 @@
+<section ng-controller="clientCtrl" ng-init="initializeClientList()">
+	<h3 class="page-title">Client Management</h3>
+	<div ng-if="!clientFac.isLoading()">
+		<div class="emptyListContainer" ng-show="clientList.length == 0 && !showNewClient">
+			<div>
+				<div class="pull-right"><button class="btn btn-primary" ng-click="add()">Add Client</button></div>
+			</div>
+			<div class="clearfix"></div>
+			<h2 class="col-md-12 text-center">No Client</h2>
+		</div>
+		<div class="row" ng-show="clientList.length > 0 || showNewClient">
+			<div class="leftContainer col-md-3 col-sm-3 col-xs-12">
+				<display-clients></display-clients>
+			</div>
+			<div class="rightContainer col-md-9 col-sm-9 col-xs-12">
+				<add-edit-clients></add-edit-clients>
+			</div>
+		</div>
+	</div>
+</section>

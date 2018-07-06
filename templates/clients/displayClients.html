@@ -1,0 +1,22 @@
+<div ng-show="clientList.length > 0" >
+	<!-- <div class="signage-inputContainer row">
+		<div class="addBtnContainer col-md-2"><button ng-disabled="showNewClient" ng-click="add()" type="button" class="btn btn-primary">Add</button></div>
+		<div class="col-md-10"><input class="form-control" type="text" ng-model="searchKeyword" placeholder="Search"/></div>
+	</div> -->
+	
+	<div class="signage-add-serach-container">
+		<div class="input-group">
+		  <input class="form-control" type="text" ng-model="searchKeyword" placeholder="Search"/>
+		  <span class="input-group-btn">
+			<button ng-disabled="showNewClient" ng-click="add()" type="button" class="btn btn-primary">Add</button>
+		  </span>
+		</div>
+	</div>
+	
+	<div class="leftListContainer">
+		<a class="leftBox arrow_box left-list" ng-repeat="client in filterData = (clientList | filter : {name: searchKeyword}) | limitTo:6:6*(page-1)" ng-class="{'active': isSelected(client.id), 'disabled': showNewClient }" ng-click="showClient(client.id)">
+			<div>{{client.name}}</div>
+		</a>
+		<ul uib-pagination boundary-links="true" boundary-link-numbers="true" max-size="3" items-per-page="6" total-items="clientList.length" ng-model="page" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+	</div>
+</div>

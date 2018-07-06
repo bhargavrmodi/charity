@@ -1,0 +1,42 @@
+<div class="loadingContainer" ng-controller="mainCtrl as mCtrl">
+	<header class="topNav">
+		<div class="leftTopNav inline navbar-header signage-leftTopNav">
+		  <button type="button" class="navbar-toggle signage-navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			<span class="icon-bar signage-icon-bar"></span>
+			<span class="icon-bar signage-icon-bar"></span>
+			<span class="icon-bar signage-icon-bar"></span>                        
+		  </button>
+		</div>
+		<div class="leftTopNav inline">
+			<a href="#"><img src="img/logo-final-transperent.png" width="70" height="70"/><span class="hideTitle"> Signage</span></a>
+		</div>	
+		<div class="rightTopNav inline">
+			<div>Bhargav Modi</div>
+			<div class="heder-role">Super Admin</div>
+		</div>
+	</header>
+	<nav class="navbar navbar-inverse signage-navbar">
+	  <div class="container-fluid">
+		<div class="collapse navbar-collapse" id="myNavbar">
+		  <ul class="nav navbar-nav">
+			<li ng-class="{'active': mCtrl.isSelected(1) }"><a ng-click="mCtrl.selectTab(1)" class="btn btn-3"><span class="ion-ios-people glyfi"></span> Clients</a></li>
+			<li ng-class="{'active': mCtrl.isSelected(2)}"><a ng-click="mCtrl.selectTab(2)" class="btn btn-3"><span class="ion-person-stalker glyfi"></span> Vendors</a></li>
+			<li ng-class="{'active': mCtrl.isSelected(3) }"><a ng-click="mCtrl.selectTab(3)" class="btn btn-3"><span class="ion-briefcase glyfi"></span> Campaigns</a></li>
+			<li ng-class="{'active': mCtrl.isSelected(4) }"><a ng-click="mCtrl.selectTab(4)" class="btn btn-3"><span class="ion-clipboard glyfi"></span> Approvals</a></li>
+			<li ng-class="{'active': mCtrl.isSelected(5) }"><a ng-click="mCtrl.selectTab(5)" class="btn btn-3"><span class="ion-android-hand glyfi"></span> Epoch Team</a></li>
+			<li ng-class="{'active': mCtrl.isSelected(6) }"><a ng-click="mCtrl.selectTab(6)" class="btn btn-3"><span class="ion-ios-chatboxes glyfi"></span> Notifications</a></li>
+			<li ng-class="{'active': mCtrl.isSelected(7) }"><a ng-click="mCtrl.selectTab(7)" class="btn btn-3"><span class="ion-ios-list-outline glyfi"></span> Proposals</a></li>
+		  </ul>
+		</div>
+	  </div>
+	</nav>
+	<section class="mainContainer">	
+		<div ng-show="mCtrl.isSelected(1)"><clients></clients></div>
+		<div ng-show="mCtrl.isSelected(2)"><vendors></vendors></div>
+		<div ng-show="mCtrl.isSelected(3)"><campaigns></campaigns></div>
+		<div ng-show="mCtrl.isSelected(4)"><approvals></approvals></div>
+		<div ng-show="mCtrl.isSelected(5)"><company></company></div>
+		<div ng-show="mCtrl.isSelected(6)"><notifications></notifications></div>
+		<div ng-show="mCtrl.isSelected(7)"><proposals></proposals></div>			
+	</section>
+</div>
